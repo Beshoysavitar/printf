@@ -26,7 +26,7 @@ int pr_left(char *st, para *poo)
 	else if (poo->space_flag && !q2 && !poo->unsign)
 		n += _putchar(' '), i++;
 	n += __put(st);
-	for (; i < poo->width; i++)
+	while (i++ < poo->width)
 		n += _putchar(p_d);
 	return (n);
 }
@@ -70,13 +70,12 @@ int pr_num(char *st, para *poo)
  */
 int _stl(char *s)
 {
-	int i;
+	int i = 0;
 
-	for (i = 0; *s != '\0'; s++)
+	while (*s++)
 		i++;
 	return (i);
 }
-
 /**
  * pr_right - ...
  * @st: ...
@@ -87,28 +86,26 @@ int _stl(char *s)
 int pr_right(char *st, para *poo)
 {
 	char p_d = ' ';
-	unsigned int n = 0, q, q2;
-	int i;
+	unsigned int n = 0, q, q2, i = _stl(st);
 
 	if (poo->zero_flag && !poo->minus_flag)
 		p_d = '0';
 	q = q2 = (!poo->unsign && *st == '-');
-
-	if (q && _stl(st) < poo->width && p_d == '0' && !poo->minus_flag)
+	if (q && i < poo->width && p_d == '0' && !poo->minus_flag)
 		st++;
 	else
 		q = 0;
 	if ((poo->plus_flag && !q2) ||
 		(!poo->plus_flag && poo->space_flag && !q2))
-	_stl(st)++;
+		i++;
 	if (q && p_d == '0')
 		n += _putchar('-');
 	if (poo->plus_flag && !q2 && p_d == '0' && !poo->unsign)
 		n += _putchar('+');
 	else if (!poo->plus_flag && poo->space_flag && !q2 &&
-			!poo->unsign && poo->zero_flag)
+		!poo->unsign && poo->zero_flag)
 		n += _putchar(' ');
-	for (i = _stl(st); i++ < poo->width;)
+	while (i++ < poo->width)
 		n += _putchar(p_d);
 	if (q && p_d == ' ')
 		n += _putchar('-');
@@ -117,11 +114,9 @@ int pr_right(char *st, para *poo)
 	else if (!poo->plus_flag && poo->space_flag && !q2 &&
 		!poo->unsign && !poo->zero_flag)
 		n += _putchar(' ');
-	for (i = 0; st[i] != '\0'; i++)
-		n += _putchar(st[i]);
+	n += __put(st);
 	return (n);
 }
-
 /**
  * _isdig - ...
  * @c: ...
