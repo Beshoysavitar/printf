@@ -16,14 +16,14 @@ char *g_pre(char *q, para *poo, va_list a)
 		return (q);
 	q++;
 
-	if (q == '')
+	if (*q == '\0')
 	{
 		i = va_arg(a, int);
 		q++;
 	}
 	else
 	{
-		for (; isdigit(*q); q++)
+		for (; _isdig(*q); q++)
 		{
 			i = i * 10 + (*q - '0');
 		}
