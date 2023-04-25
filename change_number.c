@@ -94,9 +94,9 @@ int pr_hx(va_list ap, para *poo)
  */
 int pr_bin(va_list ap, para *poo)
 {
+	unsigned int n = va_arg(ap, unsigned int);
 	char *st = conv(n, 2, CON_UN, poo);
 	int i = 0;
-	unsigned int n = va_arg(ap, unsigned int);
 
 	if (poo->hashtag_flag && n)
 		*--st = '0';
