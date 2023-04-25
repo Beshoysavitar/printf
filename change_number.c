@@ -39,18 +39,12 @@ int pr_HX(va_list ap, para *poo)
 	char *st;
 	unsigned long q;
 
-	switch (poo->length_modifier)
-	{
-		case MOD_L:
-			q = (unsigned long)va_arg(ap, unsigned long);
-			break;
-		case MOD_H:
-			q = (unsigned short int)va_arg(ap, unsigned int);
-			break;
-		default:
-			q = (unsigned int)va_arg(ap, unsigned int);
-			break;
-	}
+	if (poo->l_modifier)
+		q = (unsigned long)va_arg(ap, unsigned long);
+	else if (poo->h_modifier)
+		q = (unsigned short int)va_arg(ap, unsigned int);
+	else
+		q = (unsigned int)va_arg(ap, unsigned int);
 
 	st = conv(q, 16, CON_UN, poo);
 	if (poo->hashtag_flag && q)
@@ -74,17 +68,12 @@ int pr_hx(va_list ap, para *poo)
 	char *st;
 	unsigned long q;
 
-	switch (poo->length_modifier)
-	{
-		case MOD_L:
-			q = (unsigned long) va_arg(ap, unsigned long);
-			break;
-		case MOD_H:
-			q = (unsigned short int) va_arg(ap, unsigned int);
-			break;
-		default:
-			q = (unsigned int) va_arg(ap, unsigned int);
-	}
+	if (poo->l_modifier)
+		q = (unsigned long)va_arg(ap, unsigned long);
+	else if (poo->h_modifier)
+		q = (unsigned short int)va_arg(ap, unsigned int);
+	else
+		q = (unsigned int)va_arg(ap, unsigned int);
 
 	st = conv(q, 16, CON_UN | CON_LOW, poo);
 	if (poo->hashtag_flag && q)
@@ -112,6 +101,5 @@ int pr_bin(va_list ap, para *poo)
 	if (poo->hashtag_flag && n)
 		*--st = '0';
 	poo->unsign = 1;
-
 	return (i += pr_num(st, poo));
 }
